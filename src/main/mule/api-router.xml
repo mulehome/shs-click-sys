@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule
+	xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger"
+	xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+    <!-- APIkit configurations NOTE: leave these here instead of moving to global 
+		config file so that apikit scaffolder knows where to put flows -->
+	<http:listener-config name="shs-click-sys-httpListenerConfig">
+		<http:listener-connection
+			host="${http.host}"
+			port="${http.port}"
+			connectionIdleTimeout="${http.timeouts.connection}">
+			<reconnection>
+				<reconnect
+					frequency="${http.reconnect.frequency}"
+					count="${http.reconnect.attempts}" />
+			</reconnection>
+		</http:listener-connection>
+	</http:listener-config>
+	<apikit:config
+		name="api-router-config"
+		raml="api.raml"
+		outboundHeadersMapName="outboundHeaders"
+		httpStatusVarName="httpStatus" />
+	<api-gateway:autodiscovery
+		apiId="${api.id}"
+		doc:name="API Autodiscovery"
+		doc:id="ba57a684-c4ba-4ebc-8378-6f33587c9b57"
+		flowRef="api-router" />
+
+	<flow name="api-router">
+		<http:listener
+			config-ref="shs-click-sys-httpListenerConfig"
+			path="${http.paths.base}">
+			<http:response statusCode="#[vars.httpStatus default 200]" />
+			<http:error-response statusCode="#[vars.httpStatus default 500]">
+				<http:body><![CDATA[#[payload]]]></http:body>
+			</http:error-response>
+		</http:listener>
+		<apikit:router config-ref="api-router-config" />
+		<error-handler ref="api-error-handling" />
+	</flow>
+	<flow name="get:\:api-router-config">
+		<json-logger:logger doc:name="Start" doc:id="f0f9e4e6-2c81-422c-ada5-8e612026251f" config-ref="JSON_Logger_Config" message="Start Health Check"/>
+		<flow-ref
+			doc:name="health-check"
+			doc:id="a1776b76-650f-4a47-84a6-52eda1e5ef69"
+			name="health-check" />
+		<json-logger:logger doc:name="End" doc:id="40a2ecf9-ffb1-49fa-8f3a-4184f1f362c1" config-ref="JSON_Logger_Config" tracePoint="END" message="End Health Check"/>
+	</flow>
+	<flow name="post:\check-availability:application\json:api-router-config">
+		<json-logger:logger doc:name="Start" doc:id="44cd5704-b311-424f-aa30-f4af2f6e302d" config-ref="JSON_Logger_Config" message="Start check availability"/>
+		<flow-ref
+			doc:name="get-availability"
+			doc:id="9f4dc0c8-0c82-48af-b457-67245eb53c1b"
+			name="get-availability" />
+		<json-logger:logger doc:name="End" doc:id="284e3164-d558-4c00-9f82-974d696f6e3d" config-ref="JSON_Logger_Config" tracePoint="END" message="End check availability"/>
+	</flow>
+</mule>

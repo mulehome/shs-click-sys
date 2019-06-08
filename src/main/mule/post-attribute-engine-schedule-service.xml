@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+	<sub-flow name="post-attribute-engine-schedule-service-main" doc:id="4fa61feb-076c-4b77-b3f2-0d761936fdef" >
+		<json-logger:logger doc:name="Logger" doc:id="6c9c2f5b-4d27-4d07-a899-0c1ebfa8843d" config-ref="JSON_Logger_Config" message="not implemented" tracePoint="EVENT"/>
+	</sub-flow>
+</mule>

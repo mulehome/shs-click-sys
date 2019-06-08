@@ -1,0 +1,27 @@
+api:
+  id: "123456"
+  
+http:
+  host: "0.0.0.0"
+  port: "8081"
+  paths:
+    base: "/v1/*"
+  timeouts:
+    response: "30000"
+    connection: "30000"
+  reconnect:
+    frequency: "500"
+    attempts: "3"
+
+json:
+  logger:
+    application:
+      name: "shs-click-sys"
+      version: "1.0.0-SNAPSHOT"
+    disabledFields: "content"
+
+click: 
+  user: "integration@SearsQA"
+
+attribute-engine:
+  user: "MuleSoft"

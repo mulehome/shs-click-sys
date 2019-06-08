@@ -1,0 +1,135 @@
+#%RAML 1.0 Library
+usage:
+
+types:
+  getAvailability:
+    type: object
+    properties:
+      callId: 
+        type: string
+        example: "CHECK_AVAILABLE_APPOINTMENTS"
+      number: 
+        type: string
+        example: "0"
+      postcode: 
+        type: string
+        example: "43016-8964"
+      taskType: 
+        type: string
+        example: "Repair"
+      numberOfRequiredEngineers: 
+        type: string
+        example: "1"
+      requiredSkills:
+        type: array
+        items:
+          type: object
+          properties:
+            skill: 
+              type: string
+              example: "LAUNDRY"
+            skillLevel: 
+              type: string
+              example: "0"
+      street:
+        type: string
+        example: "7540 CUTTERS EDGE CT"
+      city: 
+        type: string
+        example: "DUBLIN"
+      state: 
+        type: string
+        example: "OH"
+      countryId: 
+        type: string
+        example: "UNITED STATES"
+      area: 
+        type: string
+        example: "0004766"
+      continent: 
+        type: string
+        example: "0000820"
+      additionalTravel: 
+        type: string
+        example: "0"
+      serviceOrg: 
+        type: string
+        example: "Sears"
+      coverageType: 
+        type: string
+        example: "CC"
+      specialityCode: 
+        type: string
+        example: "LAUNDRY"
+      recall: 
+        type: string
+        example: "false"
+      attemptNumber: 
+        type: string
+        example: "1"
+      emergency: 
+        type: string
+        example: "false"
+      orderOverhead: 
+        type: string
+        example: "300"
+      role: 
+        type: string
+        example: "PRIMARY"
+      capacityType: 
+        type: string
+        example: "High priority or value"
+      workDuration: 
+        type: string
+        example: "1680"
+      isRescheduled: 
+        type: string
+        example: "false"
+      timezone: 
+        type: string
+        example: "Eastern Standard Time"
+      schedulePolicy: 
+        type: string
+        example: "Parameter Ignored"
+      profile: 
+        type: string
+        example: "AM-PM"
+      periodStart: 
+        type: string
+        example: "2019-04-29T00:00:00.000-04:00"
+      periodFinish: 
+        type: string
+        example: "2019-05-13T00:00:00.000-04:00"
+      excludeCurrentAppointment: 
+        type: string
+        example: "false"
+      timeout: 
+        type: string
+        example: "20"
+      gradeAppointments: 
+        type: string
+        example: "false"
+
+  availabilityResponse:
+    type: array
+    items:
+      type: object
+      properties:
+        start: 
+          type: string
+          example: "2019-04-29T13:00:00"
+        finish: 
+          type: string
+          example: "2019-04-29T17:00:00"
+        grade: 
+          type: string
+          example: "0"
+        callId: 
+          type: string
+          example: "CHECK_AVAILABLE_APPOINTMENTS"
+        number: 
+          type: string
+          example: "0"
+        resource: 
+          type: string
+          example: "GSMI132"

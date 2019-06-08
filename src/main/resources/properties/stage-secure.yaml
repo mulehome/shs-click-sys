@@ -1,0 +1,4 @@
+# This api's client id and secret
+api:
+  clientId: ""
+  clientSecret: ""

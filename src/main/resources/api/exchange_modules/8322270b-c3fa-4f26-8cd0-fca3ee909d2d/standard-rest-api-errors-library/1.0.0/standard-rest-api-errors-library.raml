@@ -1,0 +1,89 @@
+#%RAML 1.0 Library
+usage: This library defines the standard error response trait and type.
+
+types:
+  Error:
+    type: object
+    description: Standard API Error Response
+    properties:
+      message:
+        type: string
+        required: true
+        example: "Bad Request"
+      details:
+        type: string
+        required: false
+        example: "Error validating response"
+      
+traits:
+  errorHandler:
+    responses:
+        400:
+          description: "Bad Request"
+          body:
+            application/json:
+              type: Error
+              example: |
+                {
+                  "message": "Bad Request",
+                  "details": "Error validating response"
+                }
+        404:
+          description: "Resource Not Found"
+          body:
+            application/json:
+              type: Error
+              example: |
+                {
+                  "message": "Resource Not Found",
+                  "details": "Specific error description here"
+                }            
+        405:
+          description: "Method Not Allowed"
+          body:
+            application/json:
+              type: Error
+              example: |
+                {
+                  "message": "Method Not Allowed",
+                  "details": "Specific error description here"
+                } 
+        406:
+          description: "Not Acceptable"
+          body:
+            application/json:
+              type: Error              
+              example: |
+                {
+                  "message": "Not Acceptable",
+                  "details": "Specific error description here"
+                } 
+        408:
+          description: "Connection Timeout"
+          body:
+            application/json:
+              type: Error
+              example: |
+                {
+                  "message": "Connection Timeout",
+                  "details": "Specific error description here"
+                } 
+        415:
+          description: "Unsupported Media Type"
+          body:
+            application/json:
+              type: Error
+              example: |
+                {
+                  "message": "Unsupported Media Type",
+                  "details": "Specific error description here"
+                } 
+        500:
+          body:
+            application/json:
+              type: Error
+              example: |
+                {
+                  "message": "Server Error",
+                  "details": "Specific error description here"
+                } 

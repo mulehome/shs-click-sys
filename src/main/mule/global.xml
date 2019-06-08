@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+	<!-- Property Configs -->
+	<configuration-properties
+		doc:name="Configuration properties"
+		doc:id="c587b48c-2bf7-4356-a65b-9fd61b442885"
+		file="properties/${mule.env}.yaml" />
+	<secure-properties:config
+		name="Secure_Properties_Config"
+		doc:name="Secure Properties Config"
+		doc:id="6ffeb4b5-478b-4ae4-82a2-0ba0cf08eb79"
+		file="properties/${mule.env}-secure.yaml"
+		key="${mule.vault.key}" />
+	
+	<!-- WSC config -->
+	<wsc:config
+		name="Click_Service_Config"
+		doc:name="Web Service Consumer Config"
+		doc:id="cbf6c8c1-3f68-43b9-8cef-74f34cb51904">
+		<wsc:connection
+			wsdlLocation="ScheduleService.wsdl"
+			service="W6ScheduleService"
+			port="BasicHttpBinding_ScheduleService"
+			address="https://fse-na-sb-int01.cloud.clicksoftware.com/SO/IntegrationServices/ScheduleService.svc/BasicHttpInt">
+			<wsc:custom-transport-configuration>
+				<wsc:http-transport-configuration
+					requesterConfig="Click_credentials" />
+			</wsc:custom-transport-configuration>
+		</wsc:connection>
+	</wsc:config>
+	<http:request-config
+		name="Click_credentials"
+		doc:name="HTTP Request configuration"
+		doc:id="833c1c88-0ff5-4df1-b86b-260017bbd64f"
+		doc:description="Used for the WSC config">
+		<http:request-connection>
+			<http:authentication>
+				<http:basic-authentication
+					username="${click.user}"
+					password="${secure::click.pwd}" />
+			</http:authentication>
+		</http:request-connection>
+	</http:request-config>
+
+	<!-- Other configs -->
+	<json-logger:config
+		name="JSON_Logger_Config"
+		doc:name="JSON Logger Config"
+		doc:id="973ca786-2346-40e2-bf9a-24cc42f15b57"
+		disabledFields="${json.logger.disabledFields}" />
+<!-- 	<http:request-config name="Attribute_Engine_Request" doc:name="HTTP Request configuration" doc:id="7c943bc4-0a21-4f79-bf1c-87faeac8a1de" > -->
+<!-- 		<http:request-connection protocol="HTTPS" host="${attribute-engine.host}" port="${attribute-engine.port}" > -->
+<!-- 			<http:authentication > -->
+<!-- 				<http:basic-authentication username="${attribute-engine.user}" password="${secure::attribute-engine.pwd}" /> -->
+<!-- 			</http:authentication> -->
+<!-- 		</http:request-connection> -->
+<!-- 	</http:request-config> -->
+
+</mule>

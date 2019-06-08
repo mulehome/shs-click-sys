@@ -1,0 +1,10 @@
+# This api's client id and secret
+api:
+  clientId: ""
+  clientSecret: ""
+
+click:
+  pwd: "![NKacq3UDxEgon+DVwQK42Q==]"
+  
+attribute-engine:
+  pwd: "![bAGE2n3NCqMzAWTzQC50MOL10aDrqjYIlZioL+hqlX8=]"

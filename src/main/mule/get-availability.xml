@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule
+	xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger"
+	xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+
+	<sub-flow
+		name="get-availability"
+		doc:id="342e9a4d-75d3-4de1-9538-3aae148e29a5">
+		<json-logger:logger doc:name="Before transform" doc:id="abf54d3f-f42f-4766-adfb-7d0939d37ff8" config-ref="JSON_Logger_Config" message="Before transform to click format" priority="DEBUG" tracePoint="BEFORE_TRANSFORM"/>
+		<ee:transform
+			doc:name="Transform to Click format"
+			doc:id="7efe137c-9a37-4c76-b81f-f4d05633f504">
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml writeDeclaration=false
+---
+{
+    ExtendedGetAppointmentsEx2 @('xmlns': "http://www.clicksoftware.com"): {
+        Task: {
+            CallID: payload.callId,
+            Number: payload.number,
+            Postcode: payload.postcode,
+            TaskType: payload.taskType,
+            NumberOfRequiredEngineers: payload.numberOfRequiredEngineers,
+            RequiredSkills1: payload.requiredSkills map {
+                TaskRequiredSkill1: {
+                    Key: $.skill,
+                    SkillLevel: $.skillLevel
+                }
+            },
+            Street: payload.street,
+            City: payload.city,
+            State: payload.state,
+            CountryID: payload.countryId,
+            Area: payload.area,
+            Continent: payload.continent,
+            AdditionalTravel_SO: payload.additionalTravel,
+            PSServiceOrg: payload.serviceOrg,
+            PSCoverageType: payload.coverageType,
+            PSSpecialityCode: payload.specialityCode,
+            PSRecall: payload.recall,
+            PSAttemptNumber: payload.attemptNumber,
+            PSEmergency: payload.emergency,
+            PSOrderOverhead: payload.orderOverhead,
+            PSRole: payload.role,
+            PSCapacityType: payload.capacityType,
+            PSWorkDuration: payload.workDuration,
+            PSIsRescheduled: payload.isRescheduled,
+            PSTimeZone: payload.timezone
+        },
+        SchedulePolicy: payload.schedulePolicy,
+        Profile: payload.profile,
+        Period: {
+            Start: payload.periodStart,
+            Finish: payload.periodFinish
+        },
+        ExcludeCurrentAppointment: payload.excludeCurrentAppointment,
+        TimeOut: payload.timeout,
+        GradeAppointments: payload.gradeAppointments
+    }
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables />
+		</ee:transform>
+
+	<json-logger:logger doc:name="After transform" doc:id="46397481-d0db-41c2-8add-1ce22f31d271" config-ref="JSON_Logger_Config" priority="DEBUG" tracePoint="AFTER_TRANSFORM" message="After transform to click format"/>
+		<json-logger:logger doc:name="Before click request" doc:id="7bd9ccdf-5366-49cc-b608-514f1061b106" config-ref="JSON_Logger_Config" priority="DEBUG" tracePoint="BEFORE_REQUEST" message="Before click request"/>
+		<wsc:consume
+		doc:name="Click request"
+		doc:id="805bcd75-90cc-4bb5-97e2-d9c85540078a"
+		config-ref="Click_Service_Config"
+		operation="ExtendedGetAppointmentsEx2"
+		target="response"
+		targetValue="#[payload.body]" >
+			<wsc:message >
+				<wsc:headers ><![CDATA[#[output text/xml writeDeclaration=false
+---
+headers: {
+OptionalParameters @('xmlns': "http://www.clicksoftware.com/OptionalParameters"): {
+	CallerIdentity: "${click.user}",
+	ErrorOnNonExistingDictionaries: "true"
+}}]]]></wsc:headers>
+			</wsc:message>
+		</wsc:consume>
+	<json-logger:logger doc:name="After click request" doc:id="daed5975-d579-41e0-a469-59bf7b5c7c36" config-ref="JSON_Logger_Config" priority="DEBUG" tracePoint="AFTER_REQUEST" message="After click request"/>
+		<json-logger:logger doc:name="Before transform" doc:id="486bc46c-87a4-49ef-b611-1a6ee39936db" config-ref="JSON_Logger_Config" priority="DEBUG" tracePoint="BEFORE_TRANSFORM" message="Before Transform to Common Data Model format"/>
+		<ee:transform
+		doc:name="Transform to Common Data Model format"
+		doc:id="02a89f6e-f702-4109-a36e-87961f2c0d5b">
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import camelize from dw::core::Strings
+output application/json
+fun camelCaseKeys(obj) = obj mapObject {
+    (camelize($$)): $ match {
+        case is Object -> camelCaseKeys($)
+        else -> $
+    }
+}
+---
+vars.response..*TimeInterval map (camelCaseKeys($))]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<json-logger:logger doc:name="After transform" doc:id="f4f7afdf-b71e-4f2e-b8ab-d13571431cf8" config-ref="JSON_Logger_Config" tracePoint="AFTER_TRANSFORM" message="After transform to Common Data Model format" priority="DEBUG"/>
+	</sub-flow>
+</mule>

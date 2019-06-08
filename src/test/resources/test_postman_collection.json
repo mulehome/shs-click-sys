@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "1b762234-b032-4bf9-829b-b3136d993b0d",
+		"name": "shs-click-sys",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Dev",
+			"item": [
+				{
+					"name": "health check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://shs-click-sys.us-e1.cloudhub.io/v1/",
+							"protocol": "http",
+							"host": [
+								"shs-click-sys",
+								"us-e1",
+								"cloudhub",
+								"io"
+							],
+							"path": [
+								"v1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get availability",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"callId\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n    \"number\": \"0\",\n    \"postcode\": \"43016-8964\",\n    \"taskType\": \"Repair\",\n    \"numberOfRequiredEngineers\": \"1\",\n    \"requiredSkills\": [{\n        \"skill\": \"LAUNDRY\",\n        \"skillLevel\": \"0\"\n    }],\n    \"street\": \"7540 CUTTERS EDGE CT\",\n    \"city\": \"DUBLIN\",\n    \"state\": \"OH\",\n    \"countryId\": \"UNITED STATES\",\n    \"area\": \"0004766\",\n    \"continent\": \"0000820\",\n    \"additionalTravel\": \"0\",\n    \"serviceOrg\": \"Sears\",\n    \"coverageType\": \"CC\",\n    \"specialityCode\": \"LAUNDRY\",\n    \"recall\": \"false\",\n    \"attemptNumber\": \"1\",\n    \"emergency\": \"false\",\n    \"orderOverhead\": \"300\",\n    \"role\": \"PRIMARY\",\n    \"capacityType\": \"High priority or value\",\n    \"workDuration\": \"1680\",\n    \"isRescheduled\": \"false\",\n    \"timezone\": \"Eastern Standard Time\",\n    \"schedulePolicy\": \"Parameter Ignored\",\n    \"profile\": \"AM-PM\",\n    \"periodStart\": \"2019-04-29T00:00:00.000-04:00\",\n    \"periodFinish\": \"2019-05-13T00:00:00.000-04:00\",\n    \"excludeCurrentAppointment\": \"false\",\n    \"timeout\": \"20\",\n    \"gradeAppointments\": \"false\"\n}"
+						},
+						"url": {
+							"raw": "http://shs-click-sys.us-e1.cloudhub.io/v1/check-availability",
+							"protocol": "http",
+							"host": [
+								"shs-click-sys",
+								"us-e1",
+								"cloudhub",
+								"io"
+							],
+							"path": [
+								"v1",
+								"check-availability"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1d1f8e05-026b-4e1f-a91a-d3048256aa48",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e403276b-804d-4551-b7a3-c4d090824737",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "local",
+			"item": [
+				{
+					"name": "health check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8081/v1/",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Availability",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"callId\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n    \"number\": \"0\",\n    \"postcode\": \"43016-8964\",\n    \"taskType\": \"Repair\",\n    \"numberOfRequiredEngineers\": \"1\",\n    \"requiredSkills\": [{\n        \"skill\": \"LAUNDRY\",\n        \"skillLevel\": \"0\"\n    }],\n    \"street\": \"7540 CUTTERS EDGE CT\",\n    \"city\": \"DUBLIN\",\n    \"state\": \"OH\",\n    \"countryId\": \"UNITED STATES\",\n    \"area\": \"0004766\",\n    \"continent\": \"0000820\",\n    \"additionalTravel\": \"0\",\n    \"serviceOrg\": \"Sears\",\n    \"coverageType\": \"CC\",\n    \"specialityCode\": \"LAUNDRY\",\n    \"recall\": \"false\",\n    \"attemptNumber\": \"1\",\n    \"emergency\": \"false\",\n    \"orderOverhead\": \"300\",\n    \"role\": \"PRIMARY\",\n    \"capacityType\": \"High priority or value\",\n    \"workDuration\": \"1680\",\n    \"isRescheduled\": \"false\",\n    \"timezone\": \"Eastern Standard Time\",\n    \"schedulePolicy\": \"Parameter Ignored\",\n    \"profile\": \"AM-PM\",\n    \"periodStart\": \"2019-04-29T00:00:00.000-04:00\",\n    \"periodFinish\": \"2019-05-13T00:00:00.000-04:00\",\n    \"excludeCurrentAppointment\": \"false\",\n    \"timeout\": \"20\",\n    \"gradeAppointments\": \"false\"\n}"
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8081/v1/check-availability",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"check-availability"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Availability",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"callId\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n    \"number\": \"0\",\n    \"postcode\": \"43016-8964\",\n    \"taskType\": \"Repair\",\n    \"numberOfRequiredEngineers\": \"1\",\n    \"requiredSkills\": [{\n        \"skill\": \"LAUNDRY\",\n        \"skillLevel\": \"0\"\n    }],\n    \"street\": \"7540 CUTTERS EDGE CT\",\n    \"city\": \"DUBLIN\",\n    \"state\": \"OH\",\n    \"countryId\": \"UNITED STATES\",\n    \"area\": \"0004766\",\n    \"continent\": \"0000820\",\n    \"additionalTravel\": \"0\",\n    \"serviceOrg\": \"Sears\",\n    \"coverageType\": \"CC\",\n    \"specialityCode\": \"LAUNDRY\",\n    \"recall\": \"false\",\n    \"attemptNumber\": \"1\",\n    \"emergency\": \"false\",\n    \"orderOverhead\": \"300\",\n    \"role\": \"PRIMARY\",\n    \"capacityType\": \"High priority or value\",\n    \"workDuration\": \"1680\",\n    \"isRescheduled\": \"false\",\n    \"timezone\": \"Eastern Standard Time\",\n    \"schedulePolicy\": \"Parameter Ignored\",\n    \"profile\": \"AM-PM\",\n    \"periodStart\": \"2019-04-29T00:00:00.000-04:00\",\n    \"periodFinish\": \"2019-05-13T00:00:00.000-04:00\",\n    \"excludeCurrentAppointment\": \"false\",\n    \"timeout\": \"20\",\n    \"gradeAppointments\": \"false\"\n}"
+								},
+								"url": {
+									"raw": "http://0.0.0.0:8081/v1/check-availability",
+									"protocol": "http",
+									"host": [
+										"0",
+										"0",
+										"0",
+										"0"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"check-availability"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 02 May 2019 17:01:58 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"start\": \"2019-05-02T10:00:00\",\n        \"finish\": \"2019-05-02T14:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-02T13:00:00\",\n        \"finish\": \"2019-05-02T17:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-03T08:00:00\",\n        \"finish\": \"2019-05-03T12:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-03T10:00:00\",\n        \"finish\": \"2019-05-03T14:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-03T13:00:00\",\n        \"finish\": \"2019-05-03T17:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-06T08:00:00\",\n        \"finish\": \"2019-05-06T12:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-06T10:00:00\",\n        \"finish\": \"2019-05-06T14:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-06T13:00:00\",\n        \"finish\": \"2019-05-06T17:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-07T08:00:00\",\n        \"finish\": \"2019-05-07T12:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-07T10:00:00\",\n        \"finish\": \"2019-05-07T14:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-07T13:00:00\",\n        \"finish\": \"2019-05-07T17:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-08T08:00:00\",\n        \"finish\": \"2019-05-08T12:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-08T10:00:00\",\n        \"finish\": \"2019-05-08T14:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-08T13:00:00\",\n        \"finish\": \"2019-05-08T17:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-09T08:00:00\",\n        \"finish\": \"2019-05-09T12:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-09T10:00:00\",\n        \"finish\": \"2019-05-09T14:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-09T13:00:00\",\n        \"finish\": \"2019-05-09T17:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-10T08:00:00\",\n        \"finish\": \"2019-05-10T12:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-10T10:00:00\",\n        \"finish\": \"2019-05-10T14:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    },\n    {\n        \"start\": \"2019-05-10T13:00:00\",\n        \"finish\": \"2019-05-10T17:00:00\",\n        \"grade\": \"0\",\n        \"suggestedArrangement\": {\n            \"suggestedResource\": {\n                \"task\": {\n                    \"callID\": \"CHECK_AVAILABLE_APPOINTMENTS\",\n                    \"number\": \"0\"\n                },\n                \"resource\": \"GSMI132\"\n            }\n        }\n    }\n]"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "79189504-211a-452d-9afa-b8048743ec15",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2d082693-66d6-4cfe-8118-e395043be63a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2f057ed6-27bd-406e-9fe2-610f7aef066f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9aa27a39-9b7c-4876-946f-08433654e6ab",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

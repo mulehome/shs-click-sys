@@ -1,0 +1,24 @@
+api:
+  id: "15693945"
+  
+http:
+  host: "0.0.0.0"
+  port: "8081"
+  paths:
+    base: "/v1/*"
+  timeouts:
+    response: "30000"
+    connection: "30000"
+  reconnect:
+    frequency: "500"
+    attempts: "3"
+
+json:
+  logger:
+    application:
+      name: "${project.artifactId}"
+      version: "${project.version}"
+    disabledFields: "content"
+
+click: 
+  user: "integration@SearsQA"

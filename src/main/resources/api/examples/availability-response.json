@@ -1,0 +1,18 @@
+[
+  {
+    "start": "2019-05-09T13:00:00",
+    "finish": "2019-05-09T17:00:00",
+    "grade": "0",
+    "callId": "CHECK_AVAILABLE_APPOINTMENTS",
+    "number": "0",
+    "resource": "GSMI132"
+  },
+  {
+    "start": "2019-05-09T14:00:00",
+    "finish": "2019-05-09T18:00:00",
+    "grade": "0",
+    "callId": "CHECK_AVAILABLE_APPOINTMENTS",
+    "number": "0",
+    "resource": "GSMI132"
+  }
+]

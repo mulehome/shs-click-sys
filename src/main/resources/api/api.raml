@@ -1,0 +1,30 @@
+#%RAML 1.0
+version: v1
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/8305ea96-fbd7-4b02-a746-cb03e3e9ac41/ # http://shs-click-sys.us-e1.cloudhub.io/shs-click-sys/v1
+title: shs-click-sys
+
+uses:
+  SecuritySchemes: exchange_modules/8322270b-c3fa-4f26-8cd0-fca3ee909d2d/standard-security-schemes-library/1.0.0/standard-security-schemes-library.raml
+  StandardErrors: exchange_modules/8322270b-c3fa-4f26-8cd0-fca3ee909d2d/standard-rest-api-errors-library/1.0.0/standard-rest-api-errors-library.raml
+  HealthCheck: exchange_modules/8322270b-c3fa-4f26-8cd0-fca3ee909d2d/health-check/1.0.1/health-check.raml
+  TechAvailability: libraries/get-availability.raml
+
+securedBy: [ SecuritySchemes.clientIdEnforcement ]
+
+/:
+  type: HealthCheck.check
+  is: [ StandardErrors.errorHandler ]
+
+/check-availability:
+    is: [ StandardErrors.errorHandler ]
+    post:
+      body:
+        application/json:
+          type: TechAvailability.getAvailability
+          example: !include examples/availability-request.json
+      responses:
+        200:
+          body:
+            application/json:
+              type: TechAvailability.availabilityResponse
+              example: !include examples/availability-response.json
